@@ -1,0 +1,15 @@
+{
+  "name": "api-skylab",
+  "version": "1",
+  "main": "index.js",
+  "repository": "https://github.com/Skylab-MisionTIC-2022/BackendSkylab.git",
+  "author": "AndiCrop <andrescamargo.co@hotmail.com>",
+  "license": "MIT",
+  "type": "module",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "scripts": {
+    "start": "nodemon server.js"
+  }
+}
