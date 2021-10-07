@@ -1,41 +1,33 @@
-import Express from "express";
+// Loads the configuration from config.env to process.env
+require('dotenv').config({ path: './config.env' });
 
-const app = Express();
-app.use(Express.json());
+const express = require('express');
+const cors = require('cors');
+// get MongoDB driver connection
+const dbo = require('./db/conn');
 
-//ruta tipo get
-app.get('/Productos', (req, res) => {
-    console.log('Alguien hizo un get en la ruta /Productos');
-    const productos = [
-        { codigo: "A3020", descripcion: "Licra deportiva", valorunit: "$90.000",  estado: "Disponible" },
-        { codigo: "B4560", descripcion: "body deportivo", valorunit: "$50.000",  estado: "Disponible"  },
-        { codigo: "H9841", descripcion: "Joguer", valorunit: "$50.000",  estado: "Disponible"  },
-        { codigo: "E9618", descripcion: "Leggins", valorunit: "$80.000",  estado: "Disponible"  }
-        
-    ];
-    res.send(productos);
+const PORT = process.env.PORT || 5000;
+const app = express();
+
+app.use(cors());
+app.use(express.json());
+app.use(require('./routes/product'));
+
+// Global error handling
+app.use(function (err, _req, res) {
+  console.error(err.stack);
+  res.status(500).send('Something broke!');
 });
 
-app.post('/Productos/Nuevo', (req, res) => {
-    const datosProducto = req.body;
-    console.log("Llaves: ", Object.keys(datosProducto));
-    try{
-        if( 
-            Object.keys(datosProducto).includes("codigo") &&
-            Object.keys(datosProducto).includes("descripcion") &&
-            Object.keys(datosProducto).includes("valorunit") && 
-            Object.keys(datosProducto).includes("estado") 
-        ) {
-            res.sendStatus(200); // enviar respuesta "OK"
-        } else{
-            res.sendStatus(500);
-        }
-    } catch {
-        res.sendStatus(500);
-    }
-});
+// perform a database connection when the server starts
+dbo.connectToServer(function (err) {
+  if (err) {
+    console.error(err);
+    process.exit();
+  }
 
-
-app.listen(5000, () => {
-    console.log('Escuchando el puerto 5000');
+  // start the Express server
+  app.listen(PORT, () => {
+    console.log(`Server is running on port: ${PORT}`);
+  });
 });
