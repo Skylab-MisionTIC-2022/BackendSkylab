@@ -10,17 +10,17 @@ const recordRoutes = express.Router();
 const dbo = require('../db/conn');
 
 // This section will help you get a list of all the records.
-recordRoutes.route('/vehicle').get(async function (req, res) {
+recordRoutes.route('/product').get(async function (req, res) {
   // Get records
   const dbConnect = dbo.getDb();
 
   dbConnect
-    .collection('vehiculos')
+    .collection('Productos')
     .find({})
     .limit(50)
     .toArray(function (err, result) {
       if (err) {
-        res.status(400).send('Error fetching vehicles!');
+        res.status(400).send('Error fetching productos!');
       } else {
         res.json(result);
       }
@@ -28,42 +28,43 @@ recordRoutes.route('/vehicle').get(async function (req, res) {
 });
 
 // This section will help you create a new record.
-recordRoutes.route('/vehicle/create').post(function (req, res) {
+recordRoutes.route('/Productos/Nuevo').post(function (req, res) {
   const dbConnect = dbo.getDb();
-  const vehicle = {
-    name: req.body.name,
-    brand: req.body.brand,
-    model: req.body.model,
+  const product = {
+    codigo: req.body.name,
+    descripcion: req.body.descripcion,
+    valorunit: req.body.valorunit,
+    estado: req.body.estado,
     created: new Date(),
   };
 
-  dbConnect.collection('vehiculos').insertOne(vehicle, function (err, result) {
+  dbConnect.collection('Productos').insertOne(product, function (err, result) {
     if (err) {
-      res.status(400).send('Error inserting vehicle!');
+      res.status(400).send('Error inserting product!');
     } else {
-      console.log(`Added a new vehicle with id ${result.insertedId}`);
+      console.log(`Added a new product with id ${result.insertedId}`);
       res.json({ id: result.insertedId });
     }
   });
 });
 
 // This section will help you update a record by id.
-recordRoutes.route('/vehicle/update').patch(function (req, res) {
+recordRoutes.route('/Productos/Modificar').patch(function (req, res) {
   const dbConnect = dbo.getDb();
-  const vehicle = { _id: new ObjectID(req.body.id) };
+  const product = { _id: new ObjectID(req.body.id) };
   delete req.body.id;
   const updates = { $set: req.body };
   dbConnect
-    .collection('vehiculos')
+    .collection('Productos')
     .findOneAndUpdate(
-      vehicle,
+      product,
       updates,
       { new: true, upsert: true, returnOriginal: false },
       function (err, _result) {
         if (err) {
-          res.status(400).send(`Error updating likes on listing with id ${vehicle.id}!`);
+          res.status(400).send(`Error updating likes on listing with id ${product.id}!`);
         } else {
-          console.log('1 vehicle updated');
+          console.log('1 product updated');
           res.json({ result: _result });
         }
       }
@@ -71,15 +72,15 @@ recordRoutes.route('/vehicle/update').patch(function (req, res) {
 });
 
 // This section will help you delete a record
-recordRoutes.route('/vehicle/delete').delete((req, res) => {
+recordRoutes.route('//Productos/Borrar').delete((req, res) => {
   // Delete documents
   const dbConnect = dbo.getDb();
   console.log(req.body.id);
-  const vehicleQuery = { _id: new ObjectID(req.body.id) };
+  const productQuery = { _id: new ObjectID(req.body.id) };
 
-  dbConnect.collection('vehiculos').deleteOne(vehicleQuery, function (err, _result) {
+  dbConnect.collection('Productos').deleteOne(productQuery, function (err, _result) {
     if (err) {
-      res.status(400).send(`Error deleting listing with id ${vehicleQuery._id}!`);
+      res.status(400).send(`Error deleting listing with id ${productQuery._id}!`);
     } else {
       console.log('1 document deleted');
       res.json({ status: 'deletion successful' });
