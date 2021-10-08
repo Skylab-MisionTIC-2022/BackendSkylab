@@ -12,6 +12,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(require('./routes/product'));
+app.use(require('./routes/user'));
 
 // Global error handling
 app.use(function (err, _result,result,_req,req, res) {
