@@ -2,7 +2,7 @@ import Express from "express";
 import { MongoClient, ObjectId } from "mongodb";
 import Cors from 'cors';
 
-const stringConexion = 'mongodb+srv://paola:paola@skylab.kfbvn.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
+const stringConexion = '';
 
 
 const client = new MongoClient(stringConexion, {
