@@ -31,7 +31,7 @@ recordRoutes.route('/Productos').get(async function (req, res) {
 recordRoutes.route('/Productos/Nuevo').post(function (req, res) {
   const dbConnect = dbo.getDb();
   const product = {
-    codigo: req.body.name,
+    codigo: req.body.codigo,
     descripcion: req.body.descripcion,
     valorunit: req.body.valorunit,
     estado: req.body.estado,
