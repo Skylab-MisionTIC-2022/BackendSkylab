@@ -10,7 +10,7 @@ const recordRoutes = express.Router();
 const dbo = require('../db/conn');
 
 // This section will help you get a list of all the records.
-recordRoutes.route('/product').get(async function (req, res) {
+recordRoutes.route('/Productos').get(async function (req, res) {
   // Get records
   const dbConnect = dbo.getDb();
 
@@ -49,7 +49,7 @@ recordRoutes.route('/Productos/Nuevo').post(function (req, res) {
 });
 
 // This section will help you update a record by id.
-recordRoutes.route('/Productos/Modificar').patch(function (req, res) {
+recordRoutes.route('/Productos/Editar').patch(function (req, res) {
   const dbConnect = dbo.getDb();
   const product = { _id: new ObjectID(req.body.id) };
   delete req.body.id;
@@ -72,7 +72,7 @@ recordRoutes.route('/Productos/Modificar').patch(function (req, res) {
 });
 
 // This section will help you delete a record
-recordRoutes.route('//Productos/Borrar').delete((req, res) => {
+recordRoutes.route('/Productos/Eliminar').delete((req, res) => {
   // Delete documents
   const dbConnect = dbo.getDb();
   console.log(req.body.id);
