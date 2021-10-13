@@ -20,16 +20,16 @@ rutasUsuario.route('/usuarios').get( (req, res) => {
   getAllUsers(genericCallback(res));
 });
 
-rutasUsuario.route('/usuarios/nuevo').post( (req, res) => {
+rutasUsuario.route('/usuarios/nuevo/').post( (req, res) => {
   createUser(req.body, genericCallback(res));
 });
   
 
-rutasUsuario.route('/usuarios/:id').patch( (req, res) => {
+rutasUsuario.route('/usuarios/:id/').patch( (req, res) => {
   editUser(req.params.id, req.body, genericCallback(res));
 });
 
-rutasUsuario.route('/usuarios/:id').delete( (req, res) => {
+rutasUsuario.route('/usuarios/:id/').delete( (req, res) => {
   deleteUser(req.params.id, genericCallback(res));
 });
 

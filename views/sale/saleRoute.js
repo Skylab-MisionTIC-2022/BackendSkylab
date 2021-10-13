@@ -21,20 +21,20 @@ rutasVenta.route('/Ventas').get((req, res) => {
   getAllSales(genericCallback(res));
 });
 
-rutasVenta.route('/Ventas/Nuevo').post((req, res) => {
+rutasVenta.route('/Ventas/Nuevo/').post((req, res) => {
   createSale(req.body, genericCallback(res));
 });
 
-rutasVenta.route('/ventas/:id').get((req, res) => {
+rutasVenta.route('/ventas/:id/').get((req, res) => {
   console.log('alguien hizo get en la ruta /ventas');
   findSale(req.params.id, genericCallback(res));
 });
 
-rutasVenta.route('/Ventas/:id').patch((req, res) => {
+rutasVenta.route('/Ventas/:id/').patch((req, res) => {
   editSale(req.params.id, req.body, genericCallback(res));
 });
 
-rutasVenta.route('/Ventas/:id').delete((req, res) => {
+rutasVenta.route('/Ventas/:id/').delete((req, res) => {
   deleteSale(req.params.id, genericCallback(res));
 });
 

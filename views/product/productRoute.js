@@ -24,11 +24,11 @@ rutasProducto.route('/Productos/Nuevo').post((req, res) => {
   createProduct(req.body, genericCallback(res));
 });
 
-rutasProducto.route('/Productos/:id').patch((req, res) => {
+rutasProducto.route('/Productos/:id/').patch((req, res) => {
   editProduct(req.params.id, req.body, genericCallback(res));
 });
 
-rutasProducto.route('/Productos/:id').delete((req, res) => {
+rutasProducto.route('/Productos/:id/').delete((req, res) => {
   deleteProduct(req.params.id, genericCallback(res));
 });
 
