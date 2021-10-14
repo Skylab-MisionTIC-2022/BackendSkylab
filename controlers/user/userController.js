@@ -11,8 +11,8 @@ const createUser = async (datosUsuario, callback) => {
   await baseDeDatos.collection('Usuarios').insertOne(datosUsuario, callback);
 };
 
-const editUser = async (vehicleId, data, callback) => {
-  const filtroUsuario = { _id: new ObjectId(vehicleId) };
+const editUser = async (userId, data, callback) => {
+  const filtroUsuario = { _id: new ObjectId(userId) };
   const operacion = {
     $set: data,
   };
