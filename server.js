@@ -1,34 +1,26 @@
-// Loads the configuration from config.env to process.env
-require('dotenv').config({ path: './config.env' });
+import Express from 'express';
+import dotenv from 'dotenv';
+import Cors from 'cors';
+import { connectServer } from './db/db.js';
+import rutasUsuario from './views/user/userRoute.js';
+import rutasProducto from './views/product/productRoute.js';
+import rutasVenta from './views/sale/saleRoute.js';
 
-const express = require('express');
-const cors = require('cors');
-// get MongoDB driver connection
-const dbo = require('./db/conn');
+dotenv.config({ path: './.env' });
 
-const PORT = process.env.PORT || 5000;
-const app = express();
+const app = Express();
 
-app.use(cors());
-app.use(express.json());
-app.use(require('./routes/product'));
-app.use(require('./routes/user'));
+app.use(Cors());
+app.use(Express.json());
+app.use(rutasUsuario);
+app.use(rutasProducto);
+app.use(rutasVenta);
 
-// Global error handling
-app.use(function (err, _result,result,_req,req, res) {
-  console.error(err.stack);
-  res.status(500).send('Something broke!');
-});
-
-// perform a database connection when the server starts
-dbo.connectToServer(function (err) {
-  if (err) {
-    console.error(err);
-    process.exit();
-  }
-
-  // start the Express server
-  app.listen(PORT, () => {
-    console.log(`Server is running on port: ${PORT}`);
+const main = () => {
+  return app.listen(process.env.PORT, () => {
+    console.log(`Servidor corriendo en puerto: ${process.env.PORT}`);
   });
-});
+};
+
+connectServer(main);
+
