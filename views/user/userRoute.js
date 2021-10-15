@@ -3,7 +3,8 @@ import {
   getAllUsers, 
   createUser, 
   editUser, 
-  deleteUser
+  deleteUser,
+  consultarOCrearUsuarioPorEmail
 } from '../../controlers/user/userController.js'
 
 const rutasUsuario = Express.Router();
@@ -23,7 +24,10 @@ rutasUsuario.route('/usuarios').get( (req, res) => {
 rutasUsuario.route('/usuarios/nuevo/').post( (req, res) => {
   createUser(req.body, genericCallback(res));
 });
-  
+
+rutasUsuario.route('/usuarios/self').get((req, res) => {
+  consultarOCrearUsuarioPorEmail(req, genericCallback(res));
+});
 
 rutasUsuario.route('/usuarios/:id/').patch( (req, res) => {
   editUser(req.params.id, req.body, genericCallback(res));
