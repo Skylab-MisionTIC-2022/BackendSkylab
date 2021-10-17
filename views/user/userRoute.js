@@ -4,6 +4,7 @@ import {
   createUser, 
   editUser, 
   deleteUser,
+  consultarUsuario,
   consultarOCrearUsuarioPorEmail
 } from '../../controlers/user/userController.js'
 
@@ -18,6 +19,7 @@ const genericCallback = (res) => (err, result) => {
 };
 
 rutasUsuario.route('/usuarios').get( (req, res) => {
+  console.log('alguien hizo get en la ruta /usuarios');
   getAllUsers(genericCallback(res));
 });
 
@@ -27,6 +29,11 @@ rutasUsuario.route('/usuarios/nuevo/').post( (req, res) => {
 
 rutasUsuario.route('/usuarios/self').get((req, res) => {
   consultarOCrearUsuarioPorEmail(req, genericCallback(res));
+});
+
+rutasUsuario.route('/usuarios/:id').get((req, res) => {
+  console.log('alguien hizo get en la ruta /usuarios');
+  consultarUsuario(req.params.id, genercCallback(res));
 });
 
 rutasUsuario.route('/usuarios/:id/').patch( (req, res) => {

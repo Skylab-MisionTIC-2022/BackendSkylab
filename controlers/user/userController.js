@@ -7,20 +7,25 @@ const getAllUsers = async (callback) => {
   await baseDeDatos.collection('Usuarios').find().limit(50).toArray(callback);
 };
 
+const consultarUsuario = async (id, callback) => {
+  const baseDeDatos = getDB();
+  await baseDeDatos.collection('usuario').findOne({ _id: new ObjectId(id) }, callback);
+};
 
 const consultarOCrearUsuarioPorEmail = async (req, callback) => {
   const token = req.headers.authorization.split('Bearer ')[1];
   const usuario = jwt_decode(token)['http://localhost/userData'];
-  const baseDeDatos = getDB();
-  
+    console.log(user);
 
+  const baseDeDatos = getDB();
   await baseDeDatos.collection('Usuarios').findOne({ email: usuario.email }, async (err, res) => {
+    console.log('response consulta bd', response);
     if (res) {
       callback(err, res);
     } else {
       usuario._idAuth0 = usuario._id;
       delete usuario._id;
-      usuario.status="Pendiente";
+      usuario.estado="Pendiente";
       usuario.rol="Vendedor";
       await createUser(usuario, (err, res) => callback(err, usuario));
     }
@@ -49,4 +54,4 @@ const deleteUser = async (userId, callback) => {
   await baseDeDatos.collection('Usuarios').deleteOne(filtroUsuario, callback);
 };
 
-export { getAllUsers, createUser, editUser, deleteUser,consultarOCrearUsuarioPorEmail };
+export { getAllUsers, createUser, editUser, deleteUser,consultarUsuario,consultarOCrearUsuarioPorEmail };
