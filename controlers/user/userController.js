@@ -7,6 +7,11 @@ const getAllUsers = async (callback) => {
   await baseDeDatos.collection('Usuarios').find().limit(50).toArray(callback);
 };
 
+const createUser = async (datosUsuario, callback) => {
+  const baseDeDatos = getDB();
+  await baseDeDatos.collection('Usuarios').insertOne(datosUsuario, callback);
+};
+
 const consultarUsuario = async (id, callback) => {
   const baseDeDatos = getDB();
   await baseDeDatos.collection('usuario').findOne({ _id: new ObjectId(id) }, callback);
@@ -32,10 +37,7 @@ const consultarOCrearUsuarioPorEmail = async (req, callback) => {
   });
 };
 
-const createUser = async (datosUsuario, callback) => {
-  const baseDeDatos = getDB();
-  await baseDeDatos.collection('Usuarios').insertOne(datosUsuario, callback);
-};
+
 
 const editUser = async (userId, data, callback) => {
   const filtroUsuario = { _id: new ObjectId(userId) };
