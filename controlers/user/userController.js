@@ -7,6 +7,16 @@ const getAllUsers = async (callback) => {
   await baseDeDatos.collection('Usuarios').find().limit(50).toArray(callback);
 };
 
+const createUser = async (datosUsuario, callback) => {
+  const baseDeDatos = getDB();
+  await baseDeDatos.collection('Usuarios').insertOne(datosUsuario, callback);
+};
+
+
+const consultarUsuario = async (id, callback) => {
+  const baseDeDatos = getDB();
+  await baseDeDatos.collection('Usuarios').findOne({ _id: new ObjectId(id) }, callback);
+};
 
 const consultarOCrearUsuarioPorEmail = async (req, callback) => {
   const token = req.headers.authorization.split('Bearer ')[1];
@@ -27,10 +37,6 @@ const consultarOCrearUsuarioPorEmail = async (req, callback) => {
   });
 };
 
-const createUser = async (datosUsuario, callback) => {
-  const baseDeDatos = getDB();
-  await baseDeDatos.collection('Usuarios').insertOne(datosUsuario, callback);
-};
 
 const editUser = async (userId, data, callback) => {
   const filtroUsuario = { _id: new ObjectId(userId) };
@@ -49,4 +55,4 @@ const deleteUser = async (userId, callback) => {
   await baseDeDatos.collection('Usuarios').deleteOne(filtroUsuario, callback);
 };
 
-export { getAllUsers, createUser, editUser, deleteUser,consultarOCrearUsuarioPorEmail };
+export { getAllUsers, createUser, consultarUsuario,editUser, deleteUser,consultarOCrearUsuarioPorEmail };

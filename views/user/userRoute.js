@@ -2,6 +2,7 @@ import Express from 'express';
 import {
   getAllUsers, 
   createUser, 
+  consultarUsuario,
   editUser, 
   deleteUser,
   consultarOCrearUsuarioPorEmail
@@ -23,10 +24,16 @@ rutasUsuario.route('/usuarios').get( (req, res) => {
 
 rutasUsuario.route('/usuarios/nuevo/').post( (req, res) => {
   createUser(req.body, genericCallback(res));
+  
 });
 
 rutasUsuario.route('/usuarios/self').get((req, res) => {
   consultarOCrearUsuarioPorEmail(req, genericCallback(res));
+});
+
+rutasUsuario.route('/usuarios/:id').get((req, res) => {
+  console.log('alguien hizo get en la ruta /usuarios');
+  consultarUsuario(req.params.id, genercCallback(res));
 });
 
 rutasUsuario.route('/usuarios/:id/').patch( (req, res) => {
