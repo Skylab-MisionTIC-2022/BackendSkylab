@@ -10,7 +10,7 @@ const getAllUsers = async (callback) => {
 
 const consultarOCrearUsuarioPorEmail = async (req, callback) => {
   const token = req.headers.authorization.split('Bearer ')[1];
-  const usuario = jwt_decode(token)['https://pacific-retreat-26412.herokuapp.com/userData'];
+  const usuario = jwt_decode(token)['http: // localhost / userData'];
   const baseDeDatos = getDB();
   
 
