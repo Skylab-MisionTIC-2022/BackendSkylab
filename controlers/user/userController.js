@@ -20,7 +20,7 @@ const consultarUsuario = async (id, callback) => {
 
 const consultarOCrearUsuarioPorEmail = async (req, callback) => {
   const token = req.headers.authorization.split('Bearer ')[1];
-  const usuario = jwt_decode(token)['http://localhost/userData'];
+  const usuario = jwt_decode(token)['https://local/userData'];
   const baseDeDatos = getDB();
   
 
