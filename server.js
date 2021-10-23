@@ -31,6 +31,7 @@ algorithms: ['RS256']
 });
 
 app.use(jwtCheck);
+
 app.use(rutasUsuario);
 app.use(rutasProducto);
 app.use(rutasVenta);
