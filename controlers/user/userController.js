@@ -10,7 +10,7 @@ const getAllUsers = async (callback) => {
 
 const consultarOCrearUsuarioPorEmail = async (req, callback) => {
   const token = req.headers.authorization.split('Bearer ')[1];
-  const usuario = jwt_decode(token)['http: // localhost / userData'];
+  const usuario = jwt_decode(token)['http://localhost/userData'];
   const baseDeDatos = getDB();
   
 
@@ -21,7 +21,7 @@ const consultarOCrearUsuarioPorEmail = async (req, callback) => {
       usuario._idAuth0 = usuario._id;
       delete usuario._id;
       usuario.status="Pendiente";
-      usuario.rol="Vendedor";
+      usuario.rol="Sin rol";
       await createUser(usuario, (err, res) => callback(err, usuario));
     }
   });
